@@ -16,7 +16,7 @@ var PORT = 12500,
 //  HOST='think-b';
 
 // POLLING MS
-var POLL_MS = 1000;
+var POLL_MS = 10000;
 
 // MESSAGE TYPES
 var GET_AUDIENCE_STATUS=0,
@@ -80,8 +80,7 @@ function getViewerEventStreamPacket() {
 
 
 function getViewerEventStream() {
-  console.log(getViewerEventStreamPacket());
-  socket.write(getViewerEventStreamPacket());
+  stream_socket.write(getViewerEventStreamPacket());
 }
 
 // helper for testing
@@ -109,13 +108,6 @@ function getViewerDetail(blist, offset) {
     age = blist[OFFSET+AGE_OFFSET],
     viewerID = blist.readUInt32BE(OFFSET + ID_OFFSET),
     viewingTime =  blist.readInt32BE(OFFSET+VIEWINGTIME_OFFSET);
-  /*
-  console.log('ID#'+viewerID,
-              genderMap[gender],
-              ageMap[age],
-              'viewing '+viewingTime+' seconds'
-              );
-*/
   return {
     id : viewerID,
     gender : genderMap[gender],
@@ -128,7 +120,7 @@ function parseEventViewer(packet) {
   var type=packet[0],
     typeString = eventTypeMap[type];
 
-  console.log('parseEventViewer', typeString, getViewerDetail(packet,0) );
+  console.log("***","ViewerEvent",typeString, getViewerDetail(packet.slice(1),0) );
 }
 
 function parseAudienceDetails(packet) {
@@ -137,7 +129,7 @@ function parseAudienceDetails(packet) {
 
   for (var i=0;i<count;i++) {
     var viewerDetail = getViewerDetail(packet.slice(1),i);
-    console.log(viewerDetail);
+    console.log("---","Audience Details Event",viewerDetail);
   }
 }
 
@@ -172,8 +164,7 @@ var socket = net.connect(
                          { host:HOST, port:PORT },
                          function() {
                            console.log('client connected');
-                           //pollForViewers();
-                           getViewerEventStream();
+                           pollForViewers();
                          });
 socket.on('data', function(d) {
     parseAIMPacket(d);
@@ -186,13 +177,12 @@ socket.on('end', function() {
 var stream_socket = net.connect(
                          { host:HOST, port:PORT },
                          function() {
-                           console.log('client connected');
-                           //pollForViewers();
+                           console.log('stream client connected');
                            getViewerEventStream();
                          });
 stream_socket.on('data', function(d) {
     parseAIMPacket(d);
   });
 stream_socket.on('end', function() {
-    console.log('client disconnected');
+    console.log('streamclient disconnected');
   });
