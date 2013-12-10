@@ -12,8 +12,9 @@ var net = require('net'),
 
 // CONSTATNTS
 var PORT = 12500,
-  HOST='think-a';
+//  HOST='think-a';
 //  HOST='think-b';
+  HOST='10.119.93.152';
 
 // POLLING MS
 var POLL_MS = 10000;
@@ -172,6 +173,9 @@ socket.on('data', function(d) {
 socket.on('end', function() {
     console.log('client disconnected');
   });
+socket.on('error', function(err) {
+    console.log('client error',err);
+  });
 
 // create socket for listening to eventstream
 var stream_socket = net.connect(
@@ -186,3 +190,8 @@ stream_socket.on('data', function(d) {
 stream_socket.on('end', function() {
     console.log('streamclient disconnected');
   });
+stream_socket.on('error', function(err) {
+    console.log('streamclient error',err);
+  });
+
+console.log('connecting to', HOST, ":", PORT);
