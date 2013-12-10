@@ -11,6 +11,7 @@ In the words of Intel - "real-time audience counting and analytics".
 var naim = require('naim').connect();
 
 // subscribe to stream of events
+// *** NOT YET IMPLEMENTED ***
 naim.listen(true);
 naim.on('start', function(viewer) {
     console.log('viewing started', viewer);                
