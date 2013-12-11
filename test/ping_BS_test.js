@@ -1,14 +1,13 @@
 var naim = require('../lib/naim'),
-    MS_BETWEEN_POLLS = 1000,
+    MS_BETWEEN_POLLS = 5000,
     path = require('path'),
     isWin = !!process.platform.match(/^win/),
-    BSBIN = (isWin)?'C:\Program Files (x86)\BroadSign\bsp\bin':'/opt/broadsign/suite/bsp/bin',
-    ENABLE_CMD = BSBIN + path.sep + 'remote_action' + (isWin?'.exe':'')+ ' condition -e 1 -n "Group"',
-    DISABLE_CMD = BSBIN + path.sep + 'remote_action' + (isWin?'.exe':'') + ' condition -e 0 -n "Group"',
+    BSBIN = ((isWin)?'"C:\\Program Files (x86)\\BroadSign\\bsp\\bin':'/opt/broadsign/suite/bsp/bin') + path.sep + 'remote_action' + (isWin?'.exe"':''),
+    ENABLE_CMD = BSBIN + ' condition -e 1 -n "Group"',
+    DISABLE_CMD = BSBIN + ' condition -e 0 -n "Group"',
     HOST = 'think-a',
     exec = require('child_process').exec;
     
-
 naim.connect(HOST,null,function(err) {
     console.log('connected');
     // poll
