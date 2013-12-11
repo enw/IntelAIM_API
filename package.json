@@ -1,0 +1,26 @@
+{
+  "name": "IntelAIM_API",
+  "version": "0.1.-",
+  "description": "Node.js interface to Intel's AIM Suite",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no utomated test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enw/IntelAIM_API.git"
+  },
+  "keywords": [
+    "intel",
+    "aim",
+    "ava"
+  ],
+  "author": "Elliot Winard <enw@caveteen.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enw/IntelAIM_API/issues"
+  }
+}

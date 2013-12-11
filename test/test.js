@@ -1,5 +1,5 @@
 var naim =require('../lib/naim');
-var MS_BETWEEN_POLLS = 1000;
+var MS_BETWEEN_POLLS = 10000;
 
 naim.connect(null,null,function(err) {
     console.log('connected');
