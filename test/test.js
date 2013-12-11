@@ -1,4 +1,4 @@
-var naim =require('./lib/naim');
+var naim =require('../lib/naim');
 var MS_BETWEEN_POLLS = 1000;
 
 naim.connect(null,null,function(err) {
@@ -14,7 +14,7 @@ naim.connect(null,null,function(err) {
         if (err) { console.log('ERR',err); return err; }
         console.log('got audience details', details);
       });
-    
+
     // stream
     naim.listen(true);
     naim.on('ACK', function() {
@@ -26,7 +26,7 @@ naim.connect(null,null,function(err) {
     naim.on('EVENT_VIEWER', function(d) {
         console.log('EVENT_VIEWER received',d);
     });
-    
+
     // poll
     function pollForDetails() {
         naim.getAudienceDetails(function (err, details) {
