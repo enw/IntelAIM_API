@@ -1,5 +1,5 @@
 {
-  "name": "IntelAIM_API",
+  "name": "intel_aim_api",
   "version": "0.1.0",
   "description": "Node.js interface to Intel's AIM Suite",
   "main": "index.js",
